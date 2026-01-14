@@ -689,3 +689,14 @@ function EditPageContent() {
   );
 }
 
+export default function EditPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-bg-primary text-text-primary">
+        <p>加载中...</p>
+      </div>
+    }>
+      <EditPageContent />
+    </Suspense>
+  );
+}
