@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { TextElement } from '@/types';
 
 interface DraggableTextProps {
@@ -61,7 +61,7 @@ export default function DraggableText({
   };
 
   // 拖拽中
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging || !textRef.current) return;
     
     const container = textRef.current.parentElement;
@@ -85,12 +85,12 @@ export default function DraggableText({
       x: Math.max(0, Math.min(newX, maxX)),
       y: Math.max(0, Math.min(newY, maxY)),
     });
-  };
+  }, [isDragging, dragOffset, canvasBounds, onUpdate, text.id]);
 
   // 结束拖拽
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   // 添加全局鼠标事件监听
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function DraggableText({
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, dragOffset]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   // 双击编辑
   const handleDoubleClick = () => {
