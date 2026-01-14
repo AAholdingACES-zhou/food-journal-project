@@ -28,31 +28,6 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      // 自定义授权函数，实现白名单校验
-      async authorize(email: string): Promise<{ id: string; email: string } | null> {
-        const allowedEmails = getAllowedEmails();
-        console.log('Authorize called with email:', email);
-        console.log('Allowed emails:', allowedEmails);
-        
-        // 如果白名单为空，允许所有邮箱（开发环境）
-        if (allowedEmails.length === 0) {
-          console.warn('警告: 未配置白名单邮箱，允许所有邮箱登录');
-          return { id: email, email };
-        }
-        
-        // 检查邮箱是否在白名单中（不区分大小写）
-        const emailLower = email.toLowerCase();
-        const isAllowed = allowedEmails.some(allowed => allowed.toLowerCase() === emailLower);
-        
-        if (isAllowed) {
-          console.log('Email authorized:', email);
-          return { id: email, email };
-        }
-        
-        // 不在白名单中，返回null拒绝登录
-        console.log('Email not in whitelist:', email);
-        return null;
-      },
     }),
   ],
   pages: {
