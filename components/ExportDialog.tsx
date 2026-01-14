@@ -198,10 +198,15 @@ export default function ExportDialog({ pages, isOpen, onClose }: ExportDialogPro
     setExportProgress(0);
 
     try {
+      // 使用固定尺寸
+      const width = CANVAS_WIDTH;
+      const height = CANVAS_HEIGHT;
+
+      // 创建 PDF 时直接使用正确的尺寸
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
-        format: [1200, 1600], // 默认尺寸，会根据实际内容调整
+        format: [width, height],
       });
 
       for (let i = 0; i < pages.length; i++) {
@@ -212,18 +217,9 @@ export default function ExportDialog({ pages, isOpen, onClose }: ExportDialogPro
         
         if (!previewElement) continue;
 
-        // 使用固定尺寸
-        const width = CANVAS_WIDTH;
-        const height = CANVAS_HEIGHT;
-        
         // 如果不是第一页，添加新页
         if (i > 0) {
           pdf.addPage([width, height], 'portrait');
-        } else {
-          // 第一页设置尺寸
-          pdf.setPage(1);
-          pdf.internal.pageSize.setWidth(width);
-          pdf.internal.pageSize.setHeight(height);
         }
 
         // 添加图片到PDF
