@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useJournalStore } from '@/store/journal-store';
@@ -18,7 +18,7 @@ import { autoLayout } from '@/lib/auto-layout';
 import { TextElement } from '@/types';
 import { CANVAS_WIDTH, CANVAS_HEIGHT, CANVAS_PADDING } from '@/components/CanvasContainer';
 
-export default function EditPage() {
+function EditPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { data: session } = useSession();
