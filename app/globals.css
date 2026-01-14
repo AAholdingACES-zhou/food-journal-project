@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 自定义手写体字体 */
+@font-face {
+  font-family: 'ELHandwritten';
+  src: url('/fonts/EL-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ELHandwritten';
+  src: url('/fonts/EL-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 备用 Google Fonts 手写体字体（作为后备） */
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap');
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* 手写体字体类 - 优先使用自定义字体 */
+  .font-handwritten {
+    font-family: 'ELHandwritten', 'Ma Shan Zheng', 'Zhi Mang Xing', 'Kalam', cursive, sans-serif;
+  }
+}
+
