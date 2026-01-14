@@ -26,7 +26,7 @@ export function autoLayout(
   const { canvasWidth, canvasHeight, padding } = layoutConfig;
 
   const result: {
-    images: Array<{ id: string; x: number; y: number; width?: number; height?: number }>;
+    images: Array<{ id: string; x: number; y: number; scale?: number; rotation?: number }>;
     texts: Array<{ id: string; x: number; y: number }>;
   } = {
     images: [],
@@ -106,7 +106,7 @@ function singleImageLayout(
   aspectRatio: number
 ) {
   const result: {
-    images: Array<{ id: string; x: number; y: number; width?: number; height?: number }>;
+    images: Array<{ id: string; x: number; y: number; scale?: number; rotation?: number }>;
     texts: Array<{ id: string; x: number; y: number }>;
   } = {
     images: [],
@@ -257,7 +257,7 @@ function doubleImageLayout(
   aspectRatios: number[]
 ) {
   const result: {
-    images: Array<{ id: string; x: number; y: number; width?: number; height?: number }>;
+    images: Array<{ id: string; x: number; y: number; scale?: number; rotation?: number }>;
     texts: Array<{ id: string; x: number; y: number }>;
   } = {
     images: [],
@@ -275,8 +275,8 @@ function doubleImageLayout(
     id: images[0].id,
     x: padding,
     y: padding + 60,
-    width: imageWidth,
-    height: imageHeight,
+    scale: imageWidth / images[0].width,
+    rotation: 0,
   });
 
   // 第二张图片在右侧
@@ -284,8 +284,8 @@ function doubleImageLayout(
     id: images[1].id,
     x: padding + imageWidth + padding,
     y: padding + 60,
-    width: imageWidth,
-    height: imageHeight,
+    scale: imageWidth / images[1].width,
+    rotation: 0,
   });
 
   // 日期在右上角
@@ -346,7 +346,7 @@ function layoutTextsOnly(
   padding: number
 ) {
   const result: {
-    images: Array<{ id: string; x: number; y: number; width?: number; height?: number }>;
+    images: Array<{ id: string; x: number; y: number; scale?: number; rotation?: number }>;
     texts: Array<{ id: string; x: number; y: number }>;
   } = {
     images: [],
